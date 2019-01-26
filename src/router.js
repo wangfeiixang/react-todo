@@ -1,10 +1,10 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 // import { Route, Switch, Redirect } from 'react-router-dom'
 
-import About from './components/About.js';
-import Home from './components/Home.js';
-import Contact from './components/Contact.js';
+import About from './components/About.js'
+import Home from './components/Home.js'
+import Contact from './components/Contact.js'
 
 // class router extends React.Component {
 //   render () {
@@ -31,11 +31,11 @@ const router = () => (
     />
     {/* <Redirect to="/" /> */}
   </Switch>
-);
+)
 
-function User({ match }) {
-  console.log('User--', match);
-  return <h1>Hello---{match.params.username}!</h1>;
+function User ({ match }) {
+  console.log('User--', match)
+  return <h1>Hello---{match.params.username}!</h1>
 }
 
-export default router;
+export default router

@@ -1,34 +1,34 @@
 /*eslint no-useless-constructor: "error"*/
-import React from 'react';
-import { connect } from 'react-redux';
-import { addTodo } from '../actions';
+import React from 'react'
+import { connect } from 'react-redux'
+import { addTodo } from '../actions'
 
-import { Input, Button } from 'antd';
+import { Input, Button } from 'antd'
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       inputVal: ''
-    };
+    }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // console.log('componentDidMount--', this.props)
   }
 
   addItem = () => {
-    this.props.addTodo(this.state.inputVal);
-    this.setState({ inputVal: '' });
+    this.props.addTodo(this.state.inputVal)
+    this.setState({ inputVal: '' })
   };
 
-  upLoad(val) {
+  upLoad (val) {
     this.setState({
       inputVal: val
-    });
+    })
   }
 
-  render() {
+  render () {
     return (
       <div style={{ padding: '20px', color: 'skyblue', fontSize: '20px' }}>
         Home组件
@@ -45,11 +45,11 @@ class Home extends React.Component {
           </p>
         </div>
       </div>
-    );
+    )
   }
 }
 
 export default connect(
   null,
   { addTodo }
-)(Home);
+)(Home)

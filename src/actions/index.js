@@ -1,4 +1,4 @@
-let idNum = 0;
+let idNum = 0
 
 export const addTodo = text => {
   // console.log('addTodo--actions--', text)
@@ -6,5 +6,5 @@ export const addTodo = text => {
     type: 'ADD_TODO',
     id: idNum++,
     text
-  };
-};
+  }
+}

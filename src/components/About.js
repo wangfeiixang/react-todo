@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 class About extends React.Component {
-  render() {
-    // console.log('match--params--', match)
+  render () {
+    // console.log('match--params--', this)
     return (
       <div style={{ padding: '20px', color: 'purple', fontSize: '20px' }}>
-        About组件:
+        About组件:{this.props.match.params.id}
       </div>
-    );
+    )
   }
 }
 
-export default About;
+export default About

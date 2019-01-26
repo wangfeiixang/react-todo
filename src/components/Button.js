@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import styles from './MyButton.module.css';
+import React, { Component } from 'react'
+import styles from './MyButton.module.css'
 // import '@components/MyButton.scss'
-import './MyButton.scss';
+import './MyButton.scss'
 
 class Button extends Component {
-  callFuther(msg) {
-    console.log('callFuther--', msg);
+  callFuther (msg) {
+    console.log('callFuther--', msg)
   }
-  render() {
+  render () {
     return (
       <div style={{ color: this.props.color }}>
         <h3 className="button"> {this.props.name} </h3>
@@ -21,8 +21,8 @@ class Button extends Component {
           </span>
         </p>
       </div>
-    );
+    )
   }
 }
 
-export default Button;
+export default Button

@@ -149,14 +149,14 @@
 
 // export default App
 
-import React from 'react';
-import 'antd/dist/antd.css';
+import React from 'react'
+import 'antd/dist/antd.css'
 // import { Modal, message, Button } from 'antd'
-import { connect } from 'react-redux';
-import { addTodo } from './actions';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { addTodo } from './actions'
+import { Link } from 'react-router-dom'
 
-import { Input, Button } from 'antd';
+import { Input, Button } from 'antd'
 
 // import { Route, Switch,Redirect,Link  } from 'react-router-dom'
 
@@ -164,20 +164,20 @@ import { Input, Button } from 'antd';
 // import Home from './components/Home.js'
 // import Contact from './components/Contact.js'
 
-import Myrouter from './router';
+import Myrouter from './router'
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       input: ''
-    };
+    }
   }
 
-  addItem() {
+  addItem () {
     // console.log('addItem--', this.props.dispatch)
     // this.props.addTodo(this.state.input)
-    this.props.dispatch(addTodo(this.state.input));
-    this.setState({ input: '' });
+    this.props.dispatch(addTodo(this.state.input))
+    this.setState({ input: '' })
   }
 
   state = { visible: false };
@@ -185,37 +185,37 @@ class App extends React.Component {
 
   // input change事件
   updateInput = input => {
-    this.setState({ input });
+    this.setState({ input })
   };
 
   showModal = () => {
     this.setState({
       visible: true
-    });
+    })
   };
 
   handleOk = e => {
-    console.log(e);
+    console.log(e)
     this.setState({
       visible: false
-    });
+    })
   };
 
   handleCancel = e => {
-    console.log(e);
+    console.log(e)
     this.setState({
       visible: false
-    });
+    })
   };
 
-  info() {
+  info () {
     // message.info('This is a normal message')
   }
 
-  clickFun() {
-    console.log('clickFun--');
+  clickFun () {
+    console.log('clickFun--')
   }
-  render() {
+  render () {
     return (
       <div>
         <h1 onClick={this.clickFun}>Hello, {this.props.name}</h1>
@@ -269,7 +269,7 @@ class App extends React.Component {
                 <p key={i} style={{ marginBottom: '5px' }}>
                   {item.text}
                 </p>
-              );
+              )
             })
           ) : (
             <p style={{ color: '#333' }}>暂无数据</p>
@@ -282,14 +282,14 @@ class App extends React.Component {
         <Redirect to="/" />
       </Switch> */}
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
     todos: state.todos
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

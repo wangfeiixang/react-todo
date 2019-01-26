@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 const todos = (state = [], action) => {
   if (action.type === 'ADD_TODO') {
-    console.log('state--', state);
+    console.log('state--', state)
     return [
       ...state,
       {
@@ -10,14 +10,14 @@ const todos = (state = [], action) => {
         text: action.text,
         completed: false
       }
-    ];
+    ]
   } else {
-    return state;
+    return state
   }
-};
+}
 
 const todoApp = combineReducers({
   todos
-});
+})
 
-export default todoApp;
+export default todoApp
