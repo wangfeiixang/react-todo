@@ -152,7 +152,12 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 // import { Modal, message, Button } from 'antd'
+import { connect } from 'react-redux';
+import { addTodo } from './actions';
 import { Link } from 'react-router-dom';
+
+import { Input, Button } from 'antd';
+
 // import { Route, Switch,Redirect,Link  } from 'react-router-dom'
 
 // import About from './components/About.js'
@@ -161,8 +166,28 @@ import { Link } from 'react-router-dom';
 
 import Myrouter from './router';
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ''
+    };
+  }
+
+  addItem() {
+    // console.log('addItem--', this.props.dispatch)
+    // this.props.addTodo(this.state.input)
+    this.props.dispatch(addTodo(this.state.input));
+    this.setState({ input: '' });
+  }
+
   state = { visible: false };
   id = 100;
+
+  // input change事件
+  updateInput = input => {
+    this.setState({ input });
+  };
+
   showModal = () => {
     this.setState({
       visible: true
@@ -225,8 +250,31 @@ class App extends React.Component {
           >
             contact
           </Link>
+          <p>
+            <Input
+              onChange={e => this.updateInput(e.target.value)}
+              value={this.state.input}
+              style={{ width: '300px', marginRight: '10px' }}
+            />
+            <Button type="primary" onClick={() => this.addItem()}>
+              添加
+            </Button>
+          </p>
         </div>
         <Myrouter />
+        <div style={{ padding: '20px', color: 'purple' }}>
+          {this.props.todos.length ? (
+            this.props.todos.map((item, i) => {
+              return (
+                <p key={i} style={{ marginBottom: '5px' }}>
+                  {item.text}
+                </p>
+              );
+            })
+          ) : (
+            <p style={{ color: '#333' }}>暂无数据</p>
+          )}
+        </div>
         {/* <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
@@ -238,4 +286,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    todos: state.todos
+  };
+};
+
+export default connect(mapStateToProps)(App);
