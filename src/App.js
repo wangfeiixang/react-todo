@@ -154,7 +154,7 @@ import 'antd/dist/antd.css'
 // import { Modal, message, Button } from 'antd'
 import { connect } from 'react-redux'
 import { addTodo } from './actions'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import { Input, Button } from 'antd'
 
@@ -292,4 +292,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default withRouter(connect(mapStateToProps)(App))
