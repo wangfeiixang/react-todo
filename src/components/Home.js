@@ -1,5 +1,6 @@
 /*eslint no-useless-constructor: "error"*/
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addTodo } from '../actions'
 
@@ -11,6 +12,9 @@ class Home extends React.Component {
     this.state = {
       inputVal: ''
     }
+    // applyAddItem = () => {
+    //   this.props.addItem()
+    // }
   }
 
   componentDidMount () {
@@ -18,8 +22,19 @@ class Home extends React.Component {
   }
 
   addItem = () => {
-    this.props.addTodo(this.state.inputVal)
-    this.setState({ inputVal: '' })
+    if (this.props.todos.length) {
+      let items = this.props.todos
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].text === this.state.inputVal) {
+          return
+        }
+      }
+      this.props.dispatch(addTodo(this.state.inputVal, false, -1))
+      this.setState({ inputVal: '' })
+    } else {
+      this.props.dispatch(addTodo(this.state.inputVal, false, -1))
+      this.setState({ inputVal: '' })
+    }
   };
 
   upLoad (val) {
@@ -29,6 +44,7 @@ class Home extends React.Component {
   }
 
   render () {
+    // console.log('home--render--', this.props)
     return (
       <div style={{ padding: '20px', color: 'skyblue', fontSize: '20px' }}>
         Home组件
@@ -49,7 +65,24 @@ class Home extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  { addTodo }
-)(Home)
+const mapStateToProps = state => {
+  // 去重多余项
+  let result = []
+  let obj = {}
+  for (let i =0; i<state.todos.length; i++) {
+    if (!obj[state.todos[i].id]) {
+      result.push(state.todos[i])
+      obj[state.todos[i].id] = true
+    }
+  }
+  return {
+    todos: result
+  }
+}
+
+// export default connect(
+//   null,
+//   { addTodo }
+// )(Home)
+
+export default withRouter(connect(mapStateToProps)(Home))

@@ -174,10 +174,21 @@ class App extends React.Component {
   }
 
   addItem () {
-    // console.log('addItem--', this.props.dispatch)
-    // this.props.addTodo(this.state.input)
-    this.props.dispatch(addTodo(this.state.input))
-    this.setState({ input: '' })
+    if (this.props.todos.length) {
+      let items = this.props.todos
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].text === this.state.input) {
+          return
+        }
+      }
+      this.props.dispatch(addTodo(this.state.input, false, -1))
+      this.setState({ input: '' })
+    } else {
+      this.props.dispatch(addTodo(this.state.input, false, -1))
+      this.setState({ input: '' })
+    }
+
+
   }
 
   state = { visible: false };
@@ -195,14 +206,14 @@ class App extends React.Component {
   };
 
   handleOk = e => {
-    console.log(e)
+    console.log('handleOk--', e)
     this.setState({
       visible: false
     })
   };
 
   handleCancel = e => {
-    console.log(e)
+    console.log('handleCancel--', e)
     this.setState({
       visible: false
     })
@@ -214,6 +225,12 @@ class App extends React.Component {
 
   clickFun () {
     console.log('clickFun--')
+  }
+
+  // select 选中
+  selectChange (data) {
+    data.completed = data.completed ? false : true
+    this.props.dispatch(addTodo(data.text, data.completed, data.id))
   }
   render () {
     return (
@@ -261,13 +278,13 @@ class App extends React.Component {
             </Button>
           </p>
         </div>
-        <Myrouter />
+        <Myrouter addItem={this.addItem} />
         <div style={{ padding: '20px', color: 'purple' }}>
           {this.props.todos.length ? (
             this.props.todos.map((item, i) => {
               return (
-                <p key={i} style={{ marginBottom: '5px' }}>
-                  {item.text}
+                <p key={i} style={{ margin: '0 0 5px 20px',width: '100px', textAlign: 'center',textDecoration:item.completed ? 'line-through': 'none' }} onClick={(e) => this.selectChange(item)}>
+                  {item.id+1}、 {item.text}
                 </p>
               )
             })
@@ -287,8 +304,17 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
+  // 去重多余项
+  let result = []
+  let obj = {}
+  for (let i =0; i<state.todos.length; i++) {
+    if (!obj[state.todos[i].id]) {
+      result.push(state.todos[i])
+      obj[state.todos[i].id] = true
+    }
+  }
   return {
-    todos: state.todos
+    todos: result
   }
 }
 

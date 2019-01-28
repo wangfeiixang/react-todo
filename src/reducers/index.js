@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
 
 const todos = (state = [], action) => {
-  if (action.type === 'ADD_TODO') {
-    console.log('state--', state)
+  if (action.type === 'ADD_TODO' && action.text) {
     return [
       ...state,
       {
         id: action.id,
         text: action.text,
-        completed: false
+        completed: action.completed
       }
     ]
+
   } else {
     return state
   }
